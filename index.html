@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Générateur de CV — Dossier professionnel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Work+Sans:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#14213D;
@@ -20,17 +20,19 @@
     --sidebar-muted:#A9B3C9;
     --ok:#3F6B4F;
     --danger:#A8442F;
+    --font-display:'Fraunces',serif;
+    --font-body:'Inter',sans-serif;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    font-family:'Inter',sans-serif;
+    font-family:var(--font-body);
     background:var(--canvas);
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
   }
   .eyebrow{
-    font-family:'Inter',sans-serif;
+    font-family:var(--font-body);
     font-size:11px;
     font-weight:700;
     letter-spacing:.14em;
@@ -52,7 +54,7 @@
   }
   .brand{display:flex;align-items:baseline;gap:12px;}
   .brand .mark{
-    font-family:'Fraunces',serif;
+    font-family:var(--font-display);
     font-size:22px;
     font-weight:600;
   }
@@ -61,7 +63,7 @@
     color:var(--sidebar-muted);
   }
   .btn{
-    font-family:'Inter',sans-serif;
+    font-family:var(--font-body);
     font-size:13.5px;
     font-weight:600;
     padding:10px 18px;
@@ -99,7 +101,7 @@
     padding:13px;
     border:none;
     background:transparent;
-    font-family:'Inter',sans-serif;
+    font-family:var(--font-body);
     font-weight:600;
     font-size:13px;
     color:var(--slate);
@@ -132,6 +134,11 @@
     display:flex;
     justify-content:center;
   }
+  .cv-scale-wrapper{
+    width:100%;
+    display:flex;
+    justify-content:center;
+  }
 
   /* ---------- Form sections ---------- */
   .section{
@@ -147,13 +154,13 @@
     margin-bottom:16px;
   }
   .section-num{
-    font-family:'Fraunces',serif;
+    font-family:var(--font-display);
     font-size:13px;
     color:var(--gold);
     font-weight:600;
   }
   .section-title{
-    font-family:'Fraunces',serif;
+    font-family:var(--font-display);
     font-size:19px;
     font-weight:600;
     color:var(--ink);
@@ -170,7 +177,7 @@
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   input[type=text], input[type=email], input[type=tel], input[type=month], textarea, select{
     width:100%;
-    font-family:'Inter',sans-serif;
+    font-family:var(--font-body);
     font-size:14px;
     padding:10px 12px;
     border:1px solid var(--line);
@@ -195,7 +202,7 @@
     display:flex;align-items:center;justify-content:center;
     background-size:cover;background-position:center;
     flex-shrink:0;
-    font-family:'Fraunces',serif;color:var(--gold);font-size:20px;font-weight:600;
+    font-family:var(--font-display);color:var(--gold);font-size:20px;font-weight:600;
   }
   .file-btn{
     font-size:12.5px;font-weight:600;color:var(--ink);
@@ -234,7 +241,7 @@
     font-size:13px;
     border-radius:4px;
     cursor:pointer;
-    font-family:'Inter',sans-serif;
+    font-family:var(--font-body);
   }
   .add-btn:hover{background:var(--ivory);}
 
@@ -268,64 +275,80 @@
     min-height:297mm;
     background:var(--paper);
     box-shadow:0 12px 40px rgba(20,33,61,.18);
-    display:grid;
-    grid-template-columns: 68mm 1fr;
+    padding:16mm 16mm 18mm;
   }
-  .cv-sidebar{
-    background:var(--ink);
-    color:var(--ivory);
-    padding:14mm 9mm;
+  .cv-header{
+    text-align:center;
+    padding-bottom:8mm;
+    margin-bottom:8mm;
+    border-bottom:2px solid var(--gold-soft);
   }
   .cv-avatar{
-    width:34mm;height:34mm;border-radius:50%;
+    width:28mm;height:28mm;border-radius:50%;
     background:var(--ivory);
     background-size:cover;background-position:center;
     display:flex;align-items:center;justify-content:center;
-    font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--ink);
-    margin-bottom:8mm;
+    font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--ink);
+    margin:0 auto 5mm;
     border:2px solid var(--gold);
   }
-  .cv-sb-block{margin-bottom:8mm;}
-  .cv-sb-eyebrow{
-    font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--gold);margin-bottom:3mm;
+  .cv-name{
+    font-family:var(--font-display);
+    font-size:26px;font-weight:700;color:var(--ink);line-height:1.1;
   }
+  .cv-title{
+    font-family:var(--font-body);
+    font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--gold);margin-top:2.5mm;
+  }
+  .cv-contact-row{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:2mm 4mm;
+    margin-top:5mm;
+  }
+  .cv-contact-row .cv-sb-item{
+    font-size:9.5px;color:var(--slate);margin:0;
+  }
+
+  .cv-summary{font-size:11px;line-height:1.7;color:var(--ink-soft);margin-bottom:9mm;text-align:center;max-width:150mm;margin-left:auto;margin-right:auto;}
+  .cv-summary:empty{display:none;}
+
+  .cv-meta-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:8mm;
+    margin-bottom:9mm;
+  }
+  .cv-meta-box{
+    background:var(--ivory);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:6mm 7mm;
+  }
+
   .cv-sb-item{
-    font-size:10px;line-height:1.55;color:var(--sidebar-muted);
+    font-size:10px;line-height:1.55;color:var(--ink-soft);
     margin-bottom:2.2mm;word-break:break-word;
   }
-  .cv-sb-item strong{color:var(--ivory);font-weight:600;}
+  .cv-sb-item strong{color:var(--ink);font-weight:600;}
   .cv-skill{margin-bottom:3mm;}
-  .cv-skill-name{font-size:10.5px;color:var(--ivory);margin-bottom:1.5mm;}
+  .cv-skill:last-child{margin-bottom:0;}
+  .cv-skill-name{font-size:10.5px;color:var(--ink-soft);margin-bottom:1.5mm;}
   .cv-dots{display:flex;gap:2.5px;}
-  .cv-dot{width:5px;height:5px;border-radius:50%;background:rgba(243,240,232,.22);}
+  .cv-dot{width:5px;height:5px;border-radius:50%;background:var(--line);}
   .cv-dot.filled{background:var(--gold);}
   .cv-interest{
     display:inline-block;
-    font-size:9.5px;color:var(--sidebar-muted);
-    border:1px solid rgba(243,240,232,.25);
-    padding:2mm 3mm;border-radius:20px;margin:0 1.5mm 1.5mm 0;
+    font-size:9.5px;color:var(--ink-soft);
+    border:1px solid var(--line);
+    background:var(--ivory);
+    padding:2mm 3.5mm;border-radius:20px;margin:0 1.5mm 1.5mm 0;
   }
-
-  .cv-main{padding:14mm 12mm;}
-  .cv-name{
-    font-family:'Fraunces',serif;
-    font-size:27px;font-weight:700;color:var(--ink);line-height:1.1;
-  }
-  .cv-title{
-    font-family:'Inter',sans-serif;
-    font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-    color:var(--gold);margin-top:2.5mm;
-  }
-  .cv-rule{height:2px;background:var(--gold-soft);width:14mm;margin:6mm 0 6mm;}
-  .cv-summary{font-size:11px;line-height:1.7;color:var(--ink-soft);margin-bottom:9mm;}
 
   .cv-section{margin-bottom:9mm;}
   .cv-section-title{
-    font-family:'Fraunces',serif;font-size:14.5px;font-weight:600;color:var(--ink);
+    font-family:var(--font-display);font-size:14.5px;font-weight:600;color:var(--ink);
     margin-bottom:5mm;
     display:flex;align-items:center;gap:6px;
   }
+  .cv-meta-box .cv-section-title{font-size:11.5px;margin-bottom:4mm;}
   .cv-section-title::after{
     content:"";flex:1;height:1px;background:var(--line);
   }
@@ -369,7 +392,8 @@
   }
   @media (max-width:460px){
     .panel-form{padding:24px 18px 60px;}
-    .cv-main, .cv-sidebar{padding:8mm 6mm;}
+    #cv-preview{padding:8mm 6mm 10mm;}
+    .cv-meta-grid{grid-template-columns:1fr;gap:5mm;}
   }
 
   /* ---------- Paywall ---------- */
@@ -392,7 +416,7 @@
   }
   .paywall-head .eyebrow{color:var(--gold);}
   .paywall-head h3{
-    font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin:6px 0 0;
+    font-family:var(--font-display);font-size:20px;font-weight:600;margin:6px 0 0;
   }
   .paywall-body{padding:22px 24px 24px;}
   .paywall-amount{
@@ -404,11 +428,11 @@
     margin-bottom:18px;
   }
   .paywall-amount .amount{
-    font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--ink);
+    font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--ink);
   }
   .paywall-amount .to{font-size:12px;color:var(--slate);margin-top:4px;}
   .paywall-amount .num{
-    font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--gold);
+    font-family:var(--font-body);font-weight:700;font-size:16px;color:var(--gold);
     letter-spacing:.03em;margin-top:2px;
   }
   .paywall-steps{list-style:none;margin:0 0 18px;padding:0;}
@@ -457,7 +481,7 @@
     transform:rotate(-28deg) scale(1.3);
   }
   .watermark span{
-    font-family:'Inter',sans-serif;font-weight:700;font-size:15px;
+    font-family:var(--font-body);font-weight:700;font-size:15px;
     letter-spacing:.08em;color:rgba(20,33,61,.09);
     white-space:nowrap;margin:14px 22px;
   }
@@ -483,7 +507,9 @@
       box-shadow:none;
       position:absolute;top:0;left:0;
       width:210mm;min-height:297mm;
+      transform:none !important;
     }
+    .cv-scale-wrapper{height:auto !important;}
     @page{size:A4;margin:0;}
   }
 </style>
@@ -507,6 +533,8 @@
 <div class="app-grid">
   <!-- ================= FORM ================= -->
   <div class="panel-form">
+
+    <div class="validation-banner" id="formValidationBanner"></div>
 
     <!-- 01 Informations personnelles -->
     <div class="section">
@@ -628,48 +656,45 @@
 
   <!-- ================= PREVIEW ================= -->
   <div class="panel-preview">
+    <div class="cv-scale-wrapper" id="cvScaleWrapper">
     <div id="cv-preview">
       <div class="watermark" id="watermark"></div>
-      <div class="cv-sidebar">
+
+      <div class="cv-header">
         <div class="cv-avatar" id="cvAvatar">?</div>
-
-        <div class="cv-sb-block">
-          <div class="cv-sb-eyebrow">Contact</div>
-          <div id="cvContact"></div>
-        </div>
-
-        <div class="cv-sb-block" id="cvSkillsBlock">
-          <div class="cv-sb-eyebrow">Compétences</div>
-          <div id="cvSkills"></div>
-        </div>
-
-        <div class="cv-sb-block" id="cvLangBlock">
-          <div class="cv-sb-eyebrow">Langues</div>
-          <div id="cvLangs"></div>
-        </div>
-
-        <div class="cv-sb-block" id="cvInterestBlock">
-          <div class="cv-sb-eyebrow">Centres d'intérêt</div>
-          <div id="cvInterests"></div>
-        </div>
-      </div>
-
-      <div class="cv-main">
         <div class="cv-name" id="cvName">Votre nom</div>
         <div class="cv-title" id="cvTitle">Titre professionnel</div>
-        <div class="cv-rule"></div>
-        <div class="cv-summary" id="cvSummary"></div>
+        <div class="cv-contact-row" id="cvContact"></div>
+      </div>
 
-        <div class="cv-section" id="cvExpSection">
-          <div class="cv-section-title">Expérience professionnelle</div>
-          <div class="timeline" id="cvExp"></div>
+      <div class="cv-summary" id="cvSummary"></div>
+
+      <div class="cv-meta-grid">
+        <div class="cv-meta-box" id="cvSkillsBlock">
+          <div class="cv-section-title">Compétences</div>
+          <div id="cvSkills"></div>
         </div>
-
-        <div class="cv-section" id="cvEduSection">
-          <div class="cv-section-title">Formation</div>
-          <div id="cvEdu"></div>
+        <div class="cv-meta-box" id="cvLangBlock">
+          <div class="cv-section-title">Langues</div>
+          <div id="cvLangs"></div>
         </div>
       </div>
+
+      <div class="cv-section" id="cvExpSection">
+        <div class="cv-section-title">Expérience professionnelle</div>
+        <div class="timeline" id="cvExp"></div>
+      </div>
+
+      <div class="cv-section" id="cvEduSection">
+        <div class="cv-section-title">Formation</div>
+        <div id="cvEdu"></div>
+      </div>
+
+      <div class="cv-section" id="cvInterestBlock">
+        <div class="cv-section-title">Centres d'intérêt</div>
+        <div id="cvInterests"></div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -724,6 +749,7 @@ function showTab(which){
   document.body.classList.toggle('show-preview', which==='preview');
   document.getElementById('tab-form').classList.toggle('active', which==='form');
   document.getElementById('tab-preview').classList.toggle('active', which==='preview');
+  requestAnimationFrame(fitPreview);
 }
 
 function handlePhoto(e){
@@ -961,11 +987,11 @@ function render(){
   }
 
   const contactLines = [];
-  if(phone) contactLines.push(`<div class="cv-sb-item">${esc(phone)}</div>`);
-  if(email) contactLines.push(`<div class="cv-sb-item">${esc(email)}</div>`);
-  if(address) contactLines.push(`<div class="cv-sb-item">${esc(address)}</div>`);
-  if(linkedin) contactLines.push(`<div class="cv-sb-item">${esc(linkedin)}</div>`);
-  document.getElementById('cvContact').innerHTML = contactLines.join('') || '<div class="cv-sb-item">—</div>';
+  if(phone) contactLines.push(`<span class="cv-sb-item">${esc(phone)}</span>`);
+  if(email) contactLines.push(`<span class="cv-sb-item">${esc(email)}</span>`);
+  if(address) contactLines.push(`<span class="cv-sb-item">${esc(address)}</span>`);
+  if(linkedin) contactLines.push(`<span class="cv-sb-item">${esc(linkedin)}</span>`);
+  document.getElementById('cvContact').innerHTML = contactLines.join('<span class="cv-sb-item" style="color:var(--gold);">·</span>') || '';
 
   // Skills
   const skillsBlock = document.getElementById('cvSkillsBlock');
@@ -1034,6 +1060,8 @@ function render(){
     eduSection.style.display = 'block';
     document.getElementById('cvEdu').innerHTML = '<div class="empty-note">Ajoutez votre parcours de formation dans le formulaire.</div>';
   }
+
+  requestAnimationFrame(fitPreview);
 }
 
 /* ---------- Paywall ---------- */
@@ -1055,19 +1083,19 @@ function getMissingFields(){
 }
 
 function openPaywall(){
-  if(hasUnlocked){ window.print(); return; }
+  if(hasUnlocked){ applyRandomTheme(); setTimeout(()=>window.print(), 150); return; }
 
   const missing = getMissingFields();
-  const banner = document.getElementById('validationBanner');
+  const formBanner = document.getElementById('formValidationBanner');
   if(missing.length){
-    banner.innerHTML = `Complétez votre CV avant de télécharger :<ul>${missing.map(m=>`<li>${m}</li>`).join('')}</ul>`;
-    banner.classList.add('show');
-    document.getElementById('paywallOverlay').classList.remove('open');
+    formBanner.innerHTML = `<strong>⚠️ Complétez votre CV avant de télécharger :</strong><ul>${missing.map(m=>`<li>${m}</li>`).join('')}</ul>`;
+    formBanner.classList.add('show');
     showTab('form');
     document.getElementById('fullName').focus();
+    formBanner.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
-  banner.classList.remove('show');
+  formBanner.classList.remove('show');
 
   const name = document.getElementById('fullName').value || 'mon CV';
   const msg = encodeURIComponent(`Bonjour, voici la capture d'écran de mon paiement Wave de 2000 FCFA pour débloquer le téléchargement du CV de ${name}.`);
@@ -1086,8 +1114,68 @@ function unlockAndPrint(){
   hasUnlocked = true;
   document.getElementById('unlockedBadge').classList.add('show');
   document.getElementById('watermark').classList.add('hidden');
+  applyRandomTheme();
   closePaywall();
-  window.print();
+  setTimeout(()=>window.print(), 150);
+}
+
+/* ---------- Responsive scaling ---------- */
+function fitPreview(){
+  const wrapper = document.getElementById('cvScaleWrapper');
+  const preview = document.getElementById('cv-preview');
+  if(!wrapper || !preview) return;
+  preview.style.transform = 'scale(1)';
+  preview.style.transformOrigin = 'top left';
+  const naturalWidth = preview.offsetWidth;
+  const naturalHeight = preview.offsetHeight;
+  const availableWidth = wrapper.clientWidth;
+  let scale = 1;
+  if(availableWidth > 0 && availableWidth < naturalWidth){
+    scale = availableWidth / naturalWidth;
+  }
+  preview.style.transform = `scale(${scale})`;
+  wrapper.style.height = (naturalHeight * scale) + 'px';
+}
+window.addEventListener('resize', fitPreview);
+window.addEventListener('load', fitPreview);
+setTimeout(fitPreview, 300);
+setTimeout(fitPreview, 1000);
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(fitPreview);
+}
+
+/* ---------- Thèmes aléatoires (couleurs + polices) ---------- */
+const THEMES = [
+  { name:'Navy & Or',      ink:'#14213D', inkSoft:'#2C3B5E', paper:'#FBFAF7', canvas:'#F1EEE6', gold:'#AD8A4E', goldSoft:'#E4D5B7', slate:'#6B7280', line:'#E4E0D6', ivory:'#F3F0E8', sidebarMuted:'#A9B3C9' },
+  { name:'Forêt & Bronze', ink:'#1B3A2B', inkSoft:'#2F5340', paper:'#FAF9F5', canvas:'#EDEAE1', gold:'#A67C52', goldSoft:'#D9C2A3', slate:'#6E7A72', line:'#DCD6C8', ivory:'#F1EEE5', sidebarMuted:'#AABCA9' },
+  { name:'Bordeaux & Champagne', ink:'#3B1220', inkSoft:'#5A2436', paper:'#FBF8F5', canvas:'#F0E7E2', gold:'#C9A66B', goldSoft:'#E8D8B8', slate:'#7A6A6E', line:'#E3D6D0', ivory:'#F4EDE8', sidebarMuted:'#C9AAB4' },
+  { name:'Anthracite & Sarcelle', ink:'#1F2937', inkSoft:'#374151', paper:'#F7FAFA', canvas:'#E9EEEE', gold:'#2C7A7B', goldSoft:'#B7DCDC', slate:'#6B7280', line:'#DCE3E3', ivory:'#EEF3F3', sidebarMuted:'#9FC7C8' },
+  { name:'Prune & Or rose', ink:'#322044', inkSoft:'#4B3363', paper:'#FAF7F9', canvas:'#EEE7EF', gold:'#B76E79', goldSoft:'#E9C9CE', slate:'#7A6F80', line:'#E2D9E5', ivory:'#F3EEF4', sidebarMuted:'#C7ADCB' }
+];
+const FONT_PAIRS = [
+  { display:"'Fraunces',serif",          body:"'Inter',sans-serif" },
+  { display:"'Playfair Display',serif",  body:"'Source Sans 3',sans-serif" },
+  { display:"'Libre Baskerville',serif", body:"'Work Sans',sans-serif" },
+  { display:"'Cormorant Garamond',serif",body:"'Manrope',sans-serif" }
+];
+
+function applyRandomTheme(){
+  const t = THEMES[Math.floor(Math.random() * THEMES.length)];
+  const f = FONT_PAIRS[Math.floor(Math.random() * FONT_PAIRS.length)];
+  const root = document.documentElement.style;
+  root.setProperty('--ink', t.ink);
+  root.setProperty('--ink-soft', t.inkSoft);
+  root.setProperty('--paper', t.paper);
+  root.setProperty('--canvas', t.canvas);
+  root.setProperty('--gold', t.gold);
+  root.setProperty('--gold-soft', t.goldSoft);
+  root.setProperty('--slate', t.slate);
+  root.setProperty('--line', t.line);
+  root.setProperty('--ivory', t.ivory);
+  root.setProperty('--sidebar-muted', t.sidebarMuted);
+  root.setProperty('--font-display', f.display);
+  root.setProperty('--font-body', f.body);
+  requestAnimationFrame(fitPreview);
 }
 
 /* ---------- Init ---------- */
