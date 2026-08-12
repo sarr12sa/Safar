@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Révise tes formules</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    --green:#173A2E;
+    --green-deep:#0E241C;
+    --gold:#C9A227;
+    --gold-soft:#E4C866;
+    --paper:#FAF7EF;
+    --ink:#22201B;
+    --sub:#6B6656;
+    --red:#B4443A;
+    --line:#DED6BE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Work Sans', sans-serif;
+    background:var(--green-deep);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:20px 12px 40px;
+  }
+  .app{
+    width:100%;
+    max-width:480px;
+  }
+  header{
+    text-align:center;
+    color:var(--paper);
+    padding:6px 4px 18px;
+  }
+  header .eyebrow{
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    font-weight:600;
+  }
+  header h1{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:26px;
+    margin:6px 0 2px;
+  }
+  header p{
+    margin:0;
+    font-size:12.5px;
+    color:#C9C3AC;
+  }
+
+  .card{
+    background:var(--paper);
+    border-radius:14px;
+    border:1px solid var(--line);
+    padding:18px 18px 20px;
+    box-shadow:0 14px 30px rgba(0,0,0,0.28);
+  }
+
+  /* --- Setup screen --- */
+  .cat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin:14px 0 18px;
+  }
+  .cat-btn{
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:10px;
+    padding:12px 10px;
+    text-align:left;
+    cursor:pointer;
+    font-family:'Work Sans',sans-serif;
+    transition:border-color .15s, background .15s;
+  }
+  .cat-btn.selected{
+    border-color:var(--gold);
+    background:#FBF3DC;
+  }
+  .cat-btn .num{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--green);
+    display:block;
+  }
+  .cat-btn .lbl{
+    font-size:11.5px;
+    color:var(--sub);
+    display:block;
+    margin-top:2px;
+    line-height:1.3;
+  }
+  .start-btn{
+    width:100%;
+    background:var(--green);
+    color:var(--paper);
+    border:none;
+    border-radius:10px;
+    padding:14px;
+    font-size:15px;
+    font-weight:600;
+    font-family:'Work Sans',sans-serif;
+    cursor:pointer;
+    letter-spacing:0.02em;
+  }
+  .start-btn:active{ background:var(--green-deep); }
+
+  /* --- Quiz screen --- */
+  .progress-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    font-size:12px;
+    color:var(--sub);
+  }
+  .progress-bar{
+    height:5px;
+    background:var(--line);
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:16px;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--gold);
+    transition:width .3s;
+  }
+  .score-pill{
+    background:var(--green);
+    color:var(--gold-soft);
+    font-weight:600;
+    padding:2px 10px;
+    border-radius:20px;
+    font-size:11.5px;
+  }
+  .q-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .q-name{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--green);
+    line-height:1.25;
+    margin-bottom:16px;
+  }
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+  }
+  .option{
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:10px;
+    padding:12px 13px;
+    font-size:13px;
+    line-height:1.4;
+    text-align:left;
+    cursor:pointer;
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+  }
+  .option.correct{
+    border-color:#3C7A5A;
+    background:#E8F3EA;
+  }
+  .option.wrong{
+    border-color:var(--red);
+    background:#F7E7E5;
+  }
+  .option:disabled{ cursor:default; }
+
+  .feedback{
+    margin-top:14px;
+    font-size:12.5px;
+    color:var(--sub);
+    min-height:18px;
+  }
+  .feedback.good{ color:#2E6349; font-weight:600; }
+  .feedback.bad{ color:var(--red); font-weight:600; }
+
+  .next-btn{
+    margin-top:16px;
+    width:100%;
+    background:var(--gold);
+    color:var(--green-deep);
+    border:none;
+    border-radius:10px;
+    padding:13px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    display:none;
+    font-family:'Work Sans',sans-serif;
+  }
+
+  /* --- Result screen --- */
+  .result{
+    text-align:center;
+    padding:10px 4px 4px;
+  }
+  .result .big{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:44px;
+    color:var(--green);
+    margin:6px 0 0;
+  }
+  .result .sub{
+    color:var(--sub);
+    font-size:13px;
+    margin-bottom:18px;
+  }
+  .redo-list{
+    text-align:left;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    margin:14px 0 18px;
+    max-height:220px;
+    overflow-y:auto;
+  }
+  .redo-list h3{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--sub);
+    margin:0 0 8px;
+  }
+  .redo-item{
+    font-size:12.5px;
+    padding:5px 0;
+    border-bottom:1px solid #EFE9D6;
+    color:var(--ink);
+  }
+  .redo-item:last-child{ border-bottom:none; }
+
+  .hidden{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="eyebrow">Histoire — Géographie</div>
+    <h1>Révise tes formules</h1>
+    <p>42 formules à connaître · Dr Thierno Abdou Diatta</p>
+  </header>
+
+  <div class="card" id="setupCard">
+    <div class="q-label" style="margin-bottom:2px;">Choisis un thème</div>
+    <p style="font-size:12px;color:var(--sub);margin:2px 0 0;">Tape sur un ou plusieurs thèmes, ou lance le mélange complet.</p>
+    <div class="cat-grid" id="catGrid"></div>
+    <button class="start-btn" id="startBtn">Commencer</button>
+  </div>
+
+  <div class="card hidden" id="quizCard">
+    <div class="progress-row">
+      <span id="progressText">Question 1/10</span>
+      <span class="score-pill" id="scorePill">0 pt</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="q-label">Quelle est la bonne formule ?</div>
+    <div class="q-name" id="qName"></div>
+    <div class="options" id="optionsWrap"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn">Question suivante →</button>
+  </div>
+
+  <div class="card hidden" id="resultCard">
+    <div class="result">
+      <div class="q-label">Résultat</div>
+      <div class="big" id="resultScore">0/0</div>
+      <div class="sub" id="resultMsg"></div>
+    </div>
+    <div class="redo-list hidden" id="redoList">
+      <h3>À revoir</h3>
+      <div id="redoItems"></div>
+    </div>
+    <button class="start-btn" id="restartBtn">Recommencer</button>
+  </div>
+</div>
+
+<script>
+const DATA = [
+{n:"I",name:"Solde commercial",f:"Exportations − Importations"},
+{n:"I",name:"Taux de couverture commercial",f:"(Valeur exportations ÷ Valeur importations) × 100 = %"},
+{n:"I",name:"Taux de dépendance commercial",f:"100% − taux de couverture commercial"},
+{n:"I",name:"Taux de couverture alimentaire",f:"(Production alimentaire ÷ Consommation alimentaire) × 100"},
+{n:"I",name:"Taux de dépendance alimentaire",f:"100% − taux de couverture alimentaire"},
+{n:"I",name:"Taux de couverture énergétique",f:"(Production énergétique ÷ Consommation énergétique) × 100"},
+{n:"I",name:"Taux de dépendance énergétique",f:"100% − taux de couverture énergétique"},
+{n:"I",name:"Bilan énergétique",f:"Production énergétique − Consommation énergétique"},
+{n:"I",name:"Taux d'évolution",f:"[(Valeur arrivée − Valeur départ) ÷ Valeur départ] × 100"},
+{n:"I",name:"Variation absolue",f:"Valeur année d'arrivée − Valeur année de départ"},
+{n:"I",name:"Indice",f:"(Valeur année donnée ÷ Valeur année référence) × 100"},
+{n:"I",name:"PIB par habitant",f:"PIB global ÷ Population totale"},
+{n:"I",name:"PNB par habitant",f:"PNB global ÷ Population totale"},
+{n:"I",name:"Taux d'endettement / PIB",f:"(Dette globale ÷ PIB global) × 100"},
+{n:"I",name:"Balance des invisibles",f:"Services exportés − Services importés"},
+{n:"II",name:"Taux de natalité",f:"(Naissances vivantes/an ÷ Population totale) × 1000"},
+{n:"II",name:"Taux de mortalité",f:"(Décès/an ÷ Population totale) × 1000"},
+{n:"II",name:"Accroissement naturel",f:"(Population totale × TAN) ÷ 100"},
+{n:"II",name:"Taux d'accroissement naturel (TAN)",f:"(Taux natalité − Taux mortalité) ÷ 10"},
+{n:"II",name:"Estimation de la population",f:"P(x) = P(y) × (1 + TAN/100)ⁿ"},
+{n:"II",name:"Temps de doublement",f:"ln 2 ÷ ln(1 + TAN/100)  — ou 70 ÷ TAN"},
+{n:"II",name:"Année de doublement",f:"[ln 2 ÷ ln(1 + TAN/100)] + Année de référence"},
+{n:"II",name:"Taux de fécondité",f:"(Naissances vivantes/an ÷ Femmes 15-49 ans) × 1000"},
+{n:"II",name:"Indice synthétique de fécondité",f:"Naissances vivantes/an ÷ Femmes 15-49 ans"},
+{n:"II",name:"Taux de mortalité infantile",f:"(Décès/an ÷ Naissances vivantes/an) × 1000"},
+{n:"III",name:"Densité",f:"Population totale ÷ Superficie"},
+{n:"III",name:"Taux d'urbanisation",f:"(Population urbaine ÷ Population totale) × 100"},
+{n:"III",name:"Solde migratoire",f:"Nombre d'immigrés − Nombre d'émigrés"},
+{n:"III",name:"Taux d'immigration",f:"(Nombre d'immigrés ÷ Population totale du pays) × 1000"},
+{n:"III",name:"Taux net de migration",f:"(Solde migratoire ÷ Population totale du pays) × 1000"},
+{n:"IV",name:"Indice de vieillesse",f:"(Part des vieux ÷ Part des jeunes) × 100"},
+{n:"IV",name:"Ratio de dépendance",f:"[(Part <15 ans + Part 65 ans et +) ÷ Part 15-64 ans] × 100"},
+{n:"IV",name:"Valeur relative",f:"(Valeur partielle ÷ Valeur totale) × 100"},
+{n:"IV",name:"Valeur absolue",f:"(Valeur totale × Valeur partielle) ÷ 100"},
+{n:"IV",name:"Nombre de chômeurs",f:"(Population active × Taux de chômage) ÷ 100"},
+{n:"IV",name:"Taux de chômage",f:"(Nombre de chômeurs ÷ Population active) × 100"},
+{n:"IV",name:"Nombre d'actifs d'un secteur",f:"(Population active occupée × Part du secteur) ÷ 100"},
+{n:"IV",name:"Population active occupée",f:"Population active totale − Nombre de chômeurs"},
+{n:"IV",name:"Part d'un secteur",f:"(Nombre d'actifs du secteur ÷ Population active) × 100"},
+{n:"IV",name:"Taux d'activité",f:"(Population active ÷ Population en âge de travailler) × 100"},
+{n:"IV",name:"Taux d'emploi",f:"(Population active occupée ÷ Population active) × 100"},
+{n:"IV",name:"Nombre d'actifs (population active)",f:"(Population totale × Taux d'activité) ÷ 100"},
+];
+
+const CATS = [
+  {key:"I", label:"Économie", desc:"Commerce, PIB, énergie"},
+  {key:"II", label:"Pop. — Temps", desc:"Natalité, mortalité, TAN"},
+  {key:"III", label:"Pop. — Espace", desc:"Densité, migration"},
+  {key:"IV", label:"Âge & Emploi", desc:"Chômage, secteurs"},
+];
+
+let selectedCats = new Set(CATS.map(c=>c.key));
+let pool = [];
+let qIndex = 0;
+let score = 0;
+let wrongItems = [];
+let currentOptions = [];
+let answered = false;
+
+const catGrid = document.getElementById('catGrid');
+CATS.forEach(c=>{
+  const btn = document.createElement('button');
+  btn.className = 'cat-btn selected';
+  btn.dataset.key = c.key;
+  const count = DATA.filter(d=>d.n===c.key).length;
+  btn.innerHTML = `<span class="num">${count}</span><span class="lbl">${c.label}<br>${c.desc}</span>`;
+  btn.addEventListener('click', ()=>{
+    if(selectedCats.has(c.key)){
+      if(selectedCats.size>1){ selectedCats.delete(c.key); btn.classList.remove('selected'); }
+    } else {
+      selectedCats.add(c.key); btn.classList.add('selected');
+    }
+  });
+  catGrid.appendChild(btn);
+});
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+document.getElementById('startBtn').addEventListener('click', ()=>{
+  const filtered = DATA.filter(d=>selectedCats.has(d.n));
+  pool = shuffle(filtered).slice(0, Math.min(10, filtered.length));
+  qIndex = 0; score = 0; wrongItems = [];
+  document.getElementById('setupCard').classList.add('hidden');
+  document.getElementById('resultCard').classList.add('hidden');
+  document.getElementById('quizCard').classList.remove('hidden');
+  renderQuestion();
+});
+
+document.getElementById('restartBtn').addEventListener('click', ()=>{
+  document.getElementById('resultCard').classList.add('hidden');
+  document.getElementById('setupCard').classList.remove('hidden');
+});
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  qIndex++;
+  if(qIndex >= pool.length){
+    showResult();
+  } else {
+    renderQuestion();
+  }
+});
+
+function renderQuestion(){
+  answered = false;
+  const item = pool[qIndex];
+  document.getElementById('progressText').textContent = `Question ${qIndex+1}/${pool.length}`;
+  document.getElementById('scorePill').textContent = `${score} pt`;
+  document.getElementById('progressFill').style.width = `${(qIndex/pool.length)*100}%`;
+  document.getElementById('qName').textContent = item.name;
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('nextBtn').style.display = 'none';
+
+  // build 4 options: 1 correct + 3 distractors, prefer same category
+  let sameCat = DATA.filter(d=>d.n===item.n && d.name!==item.name);
+  let distractors = shuffle(sameCat).slice(0,3);
+  if(distractors.length < 3){
+    let others = shuffle(DATA.filter(d=>d.name!==item.name && !distractors.includes(d))).slice(0,3-distractors.length);
+    distractors = distractors.concat(others);
+  }
+  currentOptions = shuffle([item, ...distractors]);
+
+  const wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML = '';
+  currentOptions.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.textContent = opt.f;
+    b.addEventListener('click', ()=> selectOption(b, opt, item));
+    wrap.appendChild(b);
+  });
+}
+
+function selectOption(btn, opt, correctItem){
+  if(answered) return;
+  answered = true;
+  const buttons = document.querySelectorAll('#optionsWrap .option');
+  buttons.forEach(b=>b.disabled = true);
+
+  if(opt.name === correctItem.name){
+    btn.classList.add('correct');
+    score++;
+    document.getElementById('feedback').textContent = 'Exact ✓';
+    document.getElementById('feedback').className = 'feedback good';
+  } else {
+    btn.classList.add('wrong');
+    buttons.forEach(b=>{ if(b.textContent === correctItem.f) b.classList.add('correct'); });
+    document.getElementById('feedback').textContent = 'Pas tout à fait — regarde la bonne réponse en vert.';
+    document.getElementById('feedback').className = 'feedback bad';
+    wrongItems.push(correctItem);
+  }
+  document.getElementById('scorePill').textContent = `${score} pt`;
+  document.getElementById('nextBtn').style.display = 'block';
+  document.getElementById('progressFill').style.width = `${((qIndex+1)/pool.length)*100}%`;
+}
+
+function showResult(){
+  document.getElementById('quizCard').classList.add('hidden');
+  document.getElementById('resultCard').classList.remove('hidden');
+  document.getElementById('resultScore').textContent = `${score}/${pool.length}`;
+  const pct = Math.round((score/pool.length)*100);
+  let msg;
+  if(pct === 100) msg = "Parfait — tu maîtrises ce thème.";
+  else if(pct >= 70) msg = "Bien joué, quelques formules à revoir.";
+  else if(pct >= 40) msg = "Pas mal, mais retourne voir la fiche récap.";
+  else msg = "Reprends la fiche récap avant de rejouer.";
+  document.getElementById('resultMsg').textContent = msg;
+
+  const redoList = document.getElementById('redoList');
+  const redoItems = document.getElementById('redoItems');
+  redoItems.innerHTML = '';
+  if(wrongItems.length){
+    redoList.classList.remove('hidden');
+    const uniq = [...new Map(wrongItems.map(i=>[i.name,i])).values()];
+    uniq.forEach(i=>{
+      const div = document.createElement('div');
+      div.className = 'redo-item';
+      div.innerHTML = `<b>${i.name}</b><br><span style="color:var(--sub)">${i.f}</span>`;
+      redoItems.appendChild(div);
+    });
+  } else {
+    redoList.classList.add('hidden');
+  }
+}
+</script>
+</body>
+</html>
